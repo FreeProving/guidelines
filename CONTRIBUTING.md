@@ -31,7 +31,7 @@ If you have questions or want to propose changes to this document, feel free to 
     4. [Haskell Styleguide](#haskell-styleguide)
     5. [Haddock Styleguide](#haddock-styleguide)
     6. [Markdown Styleguide](#markdown-styleguide)
- 8. [Legal Information](#leagal-information)
+ 8. [Legal Information](#legal-information)
     1. [Privacy](#privacy)
     2. [License](#license)
 
@@ -51,7 +51,7 @@ The following is a list of the most important repositories and an explanation of
    The Free Compiler is our compiler for the translation of non-strict languages (e.g. Haskell) with effects to strict languages (e.g. Coq) using free monads.
  - [haskell-src-transformations][] contains a prototypical pattern-matching compiler library that is used by the Free Compiler to transform Haskell programs with pattern matching on the left-hand side of function declarations into function declarations with explicit pattern matching using `case` expressions.
  - [language-coq][] is a Haskell package that provides a Coq AST and pretty-printer.
-   This package is used by the Coq backend of the Free Compiler.
+   This package is used by the Coq back end of the Free Compiler.
    The AST and pretty-printer has originally been developed as part of the [hs-to-coq][] compiler.
  - [free-proving-code][] is a library for modeling effectful programs in Coq in order to prove properties about these programs.
    Even though the Free Compiler does not use this library directly, the model applied by the Free Compiler is based on the work that can be found in this repository.
@@ -577,6 +577,7 @@ The following general guidelines apply in every language if not noted otherwise 
    foo # This is one group of code.
 
    bar # This is another group of code which is slightly related to `foo`.
+   
    
    baz # This is a group of code which is neither related to `foo` nor `bar`.
    
