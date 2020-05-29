@@ -31,7 +31,7 @@ If you have questions or want to propose changes to this document, feel free to 
     4. [Haskell Styleguide](#haskell-styleguide)
     5. [Haddock Styleguide](#haddock-styleguide)
     6. [Markdown Styleguide](#markdown-styleguide)
- 8. [Legal Information](#leagal-information)
+ 8. [Legal Information](#legal-information)
     1. [Privacy](#privacy)
     2. [License](#license)
 
@@ -44,17 +44,17 @@ Please report unacceptable behavior to the project maintainers responsible for e
 ## What Should I Know Before I Get Started?
 
 The FreeProving project is made up of [multiple repositories][GitHub] which share these common contribution guidelines.
-Before contributing to the FreeProving project, you have to know which repository you actually what to contribute to.
+Before contributing to the FreeProving project, you have to know which repository you actually want to contribute to.
 The following is a list of the most important repositories and an explanation of their role in the FreeProving project.
 
  - The [free-compiler][] repository hosts the Free Compiler.
-   The Free Compiler is our compiler for the translation of non-strict languages (e.g., Haskell) with effects to strict languages (e.g., Coq) using free monads.
+   The Free Compiler is our compiler for the translation of non-strict languages (e.g. Haskell) with effects to strict languages (e.g. Coq) using free monads.
  - [haskell-src-transformations][] contains a prototypical pattern-matching compiler library that is used by the Free Compiler to transform Haskell programs with pattern matching on the left-hand side of function declarations into function declarations with explicit pattern matching using `case` expressions.
  - [language-coq][] is a Haskell package that provides a Coq AST and pretty-printer.
    This package is used by the Coq back end of the Free Compiler.
    The AST and pretty-printer has originally been developed as part of the [hs-to-coq][] compiler.
  - [free-proving-code][] is a library for modeling effectful programs in Coq in order to prove properties about these programs.
-   Even thought the Free Compiler does not use this library directly, the model applied by the Free Compiler is based on the work that can be found in this repository.
+   Even though the Free Compiler does not use this library directly, the model applied by the Free Compiler is based on the work that can be found in this repository.
 
 This document aims to be as general as possible.
 However, not everything that you can find here applies to all repositories.
@@ -114,7 +114,7 @@ If no such proposal has been made in the past, create a new issue and provide as
 
 ### Contributing Code
 
-In order to contribute code to the FreeProvig project, you have to submit a [pull request][FreeProving/pull-requests].
+In order to contribute code to the FreeProving project, you have to submit a [pull request][FreeProving/pull-requests].
 The following instructions guide you through the creation of a pull request and our quality assurance process.
 
  1. **Pick an issue to work on**
@@ -185,7 +185,7 @@ The following instructions guide you through the creation of a pull request and 
 
  4. **Create a pull request**
 
-    Once you have implemented all changes and convinced yourself that everything is working as intend, you are ready to [submit a pull request][FreeProving/pull-requests/submit].
+    Once you have implemented all changes and convinced yourself that everything is working as intended, you are ready to [submit a pull request][FreeProving/pull-requests/submit].
     If you are not fully done yet but want feedback on what you have done so far or need help for how to continue, you can also draft a pull request before.
 
     Provide the following information when submitting a pull request.
@@ -326,7 +326,7 @@ Repositories that deviate from these guidelines, contain additional top-level di
 
    As a consequence `./example/Data/List.hs` refers to `/path/to/free-compiler/example/Data/List.hs` and not to `$(pwd)/example/Data/List.hs` in the example above.
 
-   If there are other directories named `tool` in the repository, the contained scripts are interned to to be executed from the directory containing the `tool` directory by convention.
+   If there are other directories named `tool` in the repository, the contained scripts are interned to be executed from the directory containing the `tool` directory by convention.
 
 When adding files remember the following additional guidelines.
 
@@ -444,7 +444,7 @@ The CI pipeline of most repositories checks whether
 
  - the code has been formatted with [Brittany][software/Brittany]
  - [HLint][software/HLint] prints no hint that is not explicitly ignored in `.hlint.yaml`
- - the executable and the unit tests compile without warnings,
+ - the executables and the unit tests compile without warnings,
  - all unit tests pass and
  - Haddock generates the documentation without errors and there
    are no out of scope references in the documentation.
@@ -492,7 +492,7 @@ However, a compromise has to be found between the comprehensibility and complete
 At the moment, we do not see a need to add a style guide for script or configuration languages for example.
 They make up only a very small fraction of the source code throughout the project and are not expected to be edited frequently by many different contributors.
 
-If you have to work with a language for which no styleguide exist or you don't find any reference files for in any repository, use your best judgment and keep the following two main goals in mind.
+If you have to work with a language for which no styleguide exists or you don't find any reference files for in any repository, use your best judgment and keep the following two main goals in mind.
 
  1. **Consistency**
 
@@ -505,7 +505,7 @@ If you have to work with a language for which no styleguide exist or you don't f
     Readability is more important than consistency.
     Don't format your code such that it is absolutely unreadable just to conserve a consistent style with the way other code was formatted.
     However, that does not mean that you can use the argument of readability to sacrifice consistency whenever you feel like it.
-    There is a trade off between readability and consistency!
+    There is a trade-off between readability and consistency!
 
 Also the general rules discussed in the next subsection might help in such a situation.
 
@@ -584,7 +584,7 @@ The following general guidelines apply in every language if not noted otherwise 
 
    Larger groups of code should be set apart using comments like the following.
 
-   ```bash
+   ​```bash
    ###########################################################################
    # Some Heading for `foo` and `bar`                                        #
    ###########################################################################
@@ -791,7 +791,7 @@ The following is a list of additional guidelines that are not yet covered by the
 
  - **Align constructors of data type declarations**
 
-   If the constructors of a data type declaration do not fit on one line, align them as follows.
+   If the constructors of a data type declaration do not fit in one line, align them as follows.
 
    ```haskell
    data Tree a
@@ -849,7 +849,7 @@ The following is a list of additional guidelines that are not yet covered by the
    + Don't define symbolic infix identifiers
 
      You shouldn't add functions or constructors with symbolic names such as `(|>)` or `(:<)`.
-     A regular identifier are more descriptive.
+     A regular identifier is more descriptive.
      You can still use infix notation for custom functions and operators that are defined in external libraries.
 
      ```haskell
@@ -1122,7 +1122,7 @@ When writing markdown documents adhere to the following style considerations.
     + The table of contents should be the first section of a document.
     + Write a short description or introduction before the table of contents.
     + Don't list the table of contents in the table itself.
-    + Avoid move than three levels of nesting.
+    + Avoid more than three levels of nesting.
       Two levels are preferred.
     + Every item of the table should be a link to the corresponding section or subsection.
       The link text should be the same as in the heading of the section.
@@ -1231,7 +1231,7 @@ When writing markdown documents adhere to the following style considerations.
    ```
 
    > **Remember:** Consider wisely when to use a such a paragraph and don't overdo it.
-   > Most importantly, don't scare the user but inform them such that they can make their own decisions.
+   > Most importantly, don't scare the users but inform them such that they can make their own decisions.
 
  - **Use different bullets for nested unordered lists**
 
@@ -1250,12 +1250,12 @@ When writing markdown documents adhere to the following style considerations.
     - This item is at top-level again.
    ```
 
-## Leagal information
+## Legal information
 
 This section discusses the legal consequences of your contributions to the FreeProving project.
 We know that legal topics can be tiresome.
 However, we encourage you to carefully read this section nonetheless.
-Please make sure that you understand and agree with all what's is written here before you contribute.
+Please make sure that you understand and agree with all what is written here before you contribute.
 
 ### Privacy
 
@@ -1267,7 +1267,7 @@ GitHub's [terms of privacy][GitHub/Privacy] apply.
 Note that if you contribute by the means of Git commits, your locally configured name and email address will be part of the commit message and permanently stored as part of the publicly visible commit history once you push your changes.
 Of course, you are free to anonymise/pseudonymise your contributions to the extend permitted by applicable law and GitHub's [terms of service][GitHub/Terms].
 We do not require you to provide any personal information.
-If you chose to disclose personal information about your own person through your contributions nonetheless, you are doing so completely voluntarily and at your own risk.
+If you choose to disclose personal information about your own person through your contributions nonetheless, you are doing so completely voluntarily and at your own risk.
 
 Please respect the privacy of other project members and contributors.
 If you have to mention another person, best practice is to use their GitHub user name instead of their real name even if you know them in person or their real name is publicly visible on their GitHub profile page.
@@ -1276,7 +1276,7 @@ See our [Code of Conduct][guidelines/CODE_OF_CONDUCT] for more information.
 ### License
 
 The FreeProving project is an open source project.
-The source code, associated documentation, configuration, toolchain and everything else you in the repositories of the FreeProving project is licensed under open source licenses such as [The 3-Clause BSD License][licenses/3-Clause-BSD] or [The MIT License][licenses/MIT].
+The source code, associated documentation, configuration, toolchain and everything else in the repositories of the FreeProving project is licensed under open source licenses such as [The 3-Clause BSD License][licenses/3-Clause-BSD] or [The MIT License][licenses/MIT].
 By contributing to the FreeProving project, you agree that your contributions will be licensed under the same license.
 
 In case of most open source licenses, this includes that your contributions can be
