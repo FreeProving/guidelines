@@ -577,17 +577,13 @@ The following general guidelines apply in every language if not noted otherwise 
    foo # This is one group of code.
 
    bar # This is another group of code which is slightly related to `foo`.
-   
-   
+
+
    baz # This is a group of code which is neither related to `foo` nor `bar`.
-   
    ```
-   
+
    Larger groups of code should be set apart using comments like the following.
 
-   ```
-
-   
    ​```bash
    ###########################################################################
    # Some Heading for `foo` and `bar`                                        #
