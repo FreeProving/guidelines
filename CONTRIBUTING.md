@@ -880,7 +880,7 @@ The following is a list of additional guidelines that are not yet covered by the
 It can be installed via Cabal as follows.
 
 ```haskell
-cabal new-install brittant
+cabal new-install brittany
 ```
 
 The [CI pipeline](#the-ci-pipeline) runs `brittany` on all Haskell source files in the `src` and `example` directories and compares its output with the committed files.
