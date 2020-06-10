@@ -584,7 +584,7 @@ The following general guidelines apply in every language if not noted otherwise 
 
    Larger groups of code should be set apart using comments like the following.
 
-   ​```bash
+   ```bash
    ###########################################################################
    # Some Heading for `foo` and `bar`                                        #
    ###########################################################################
