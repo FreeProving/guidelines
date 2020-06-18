@@ -788,7 +788,6 @@ The following is a list of additional guidelines that are not yet covered by the
                                                    )          -- OKAY
    ```
 
-
  - **Align constructors of data type declarations**
 
    If the constructors of a data type declaration do not fit in one line, align them as follows.
@@ -856,6 +855,24 @@ The following is a list of additional guidelines that are not yet covered by the
      x `foo` y  -- Custom function 'foo' in infix notation.
      xs :+: ys  -- Third-party operator ':+:' in infix notation.
      ```
+
+   + Prefer meaningful names over short variable names
+
+     The name of a variable should tell you something about it's type, what it is used for or where it is coming from.
+     Don't over use abbreviations!
+     If you abbreviate a variable name, stick with the naming conventions established by the remaining code in the repository you contribute to.
+     If have to deviate from those implicit naming conventions, try to be consistent with the code in the same module.
+
+     In very short functions such as lambda abstractions that span just a one or two lines as well as for polymorphic variables such as `x :: a`, `xs :: [a]`, `f :: a -> b` etc.,  single or two letter variable names are often still acceptable.
+     The variable name should still be meaningful.
+     For example, an lists should have the suffix `s` or monadic values the prefix `m`.
+
+     A consequence of meaningful variable names is that the left-hand sides of function declarations can get quite long.
+     Unfortunately, [Brittany](#brittany) does not insert line breaks on the left-hand sides of function declarations (in fact, all line breaks are removed automatically by Brittany).
+     However, meaningful variables are more important than short lines.
+     Thus, it is okay, if the left-hand side of a function declaration exceeds the 80 character line length limit.
+     Nonetheless, if a single variable name approaches this limit you definitely did something wrong :wink:
+     Meaningful variable names do not necessarily have to be long!
 
  - **Grouping source code**
 
