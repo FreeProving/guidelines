@@ -185,7 +185,7 @@ The following instructions guide you through the creation of a pull request and 
 
  4. **Create a pull request**
 
-    Once you have implemented all changes and convinced yourself that everything is working as intended, you are ready to [submit a pull request][FreeProving/pull-requests/submit].
+    Once you have implemented all changes and convinced yourself that everything is working as intended, you are ready to [submit a pull request][FreeProving/pull-requests/submit] by filling out the *generic* template for pull requests.
     If you are not fully done yet but want feedback on what you have done so far or need help for how to continue, you can also draft a pull request before.
 
     Provide the following information when submitting a pull request.
@@ -193,6 +193,7 @@ The following instructions guide you through the creation of a pull request and 
      - **Use a clear and descriptive title** for the pull request to summarize the changes.
      - **Describe *what* you have changed and *why* you had to change it.**
      - **Point out alternatives to your solution and potential drawbacks of your approach.**
+     - **Describe how you checked the correctness of your changes.**
 
  5. **Wait for all checks of the CI pipeline to run through**
 
