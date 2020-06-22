@@ -87,8 +87,9 @@ If the problem persists in the latest version and you cannot find a related bug 
       Run `git rev-parse HEAD` in your terminal in the repository's root directory to get the hash of the currently checked out Git commit.
     + **What's the name and version of the operating system you are using?**
     + **What versions of GHC and Cabal are you using?**
-    + **How are you running the Free Compiler?** Have you installed the compiler as described in the README, are you running it using Cabal or do you use one of our Bash scripts?
-       What command line arguments have you passed?
+    + **How are you running the code?**
+      Have you installed the package as described in the README, are you running it using Cabal or do you use one of our Bash scripts?
+      What command line arguments have you passed?
     + **If the problem regards generated or bundled Coq code,** what version of Coq are you using and how does your `_CoqProject` file look like (if any)?
     + **Have you made any modifications** to the source code or build configuration?
 
@@ -107,7 +108,7 @@ If no such proposal has been made in the past, create a new issue and provide as
     + **Use a clear and descriptive title** for the issue to identify the suggestion.
     + **Describe the current behavior** and **explain which behavior you would like to see instead** and why.
     + **Provide specific examples** to demonstrate both the current and wanted behavior.
-    + **Explain why the enhancement is useful** to more users of the Free Compiler.
+    + **Explain why the enhancement is useful** to other users of the package.
     + **List alternatives you have considered** and what's their drawback compared to your suggestion.
 
  - Assign the <kbd>enhancement</kbd> label to the issue.
