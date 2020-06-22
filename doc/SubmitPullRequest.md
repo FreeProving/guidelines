@@ -16,10 +16,10 @@ Without your help, the FreeProving project would not be possible.
 See also our [contributing guidelines][guidelines/CONTRIBUTING] for more information about submitting pull requests and our pull request review and acceptance procedure.
 
 [guidelines/CODE_OF_CONDUCT]:
-  https://github.com/FreeProving/guidelines/blob/master/CODE_OF_CONDUCT.md
+  https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
   "FreeProving Guidelines — Code of Conduct"
 [guidelines/CONTRIBUTING]:
-  https://github.com/FreeProving/guidelines/blob/master/CONTRIBUTING.md#contributing-code
+  https://github.com/FreeProving/guidelines/blob/main/CONTRIBUTING.md#contributing-code
   "FreeProving Guidelines — Contributing Guidelines — Contributing Code"
 
 [free-compiler]:

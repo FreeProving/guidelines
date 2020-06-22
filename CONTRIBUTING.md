@@ -18,7 +18,9 @@ If you have questions or want to propose changes to this document, feel free to 
     2. [Suggesting Enhancements](#suggesting-enhancements)
     3. [Contributing Code](#contributing-code)
  4. [Additional Software](#additional-software)
- 5. [Directory Structure](#directory-structure)
+ 5. [Repository Structure](#repository-structure)
+    1. [Branch Names](#branch-names)
+    2. [Directory Structure](#directory-structure)
  6. [Testing](#testing)
     1. [Running Unit Tests](#running-unit-tests)
     2. [Writing Unit Tests](#writing-unit-tests)
@@ -132,11 +134,11 @@ The following instructions guide you through the creation of a pull request and 
        git clone git@github.com:<YOUR_USER_NAME>/<REPOSITORY>.git
        ```
 
-       In a forked repository, you can push to the master branch directly.
+       In a forked repository, you can push to the `main` branch directly.
        Consider enabling GitHub actions on the Actions tab of your fork of the repository to run the CI pipeline before you create a pull request.
 
      - Members of the FreeProving project do don't have to fork repositories they want to contribute to.
-       In the main repository pushing to the master branch is prohibited.
+       In the main repository pushing to the `main` branch is prohibited.
        All development takes place in so called *feature branches*.
        If you are working on a specific issue `#N`, create a branch `issue-N` for all changes related to that issue.
 
@@ -159,12 +161,12 @@ The following instructions guide you through the creation of a pull request and 
     - Ensure that your changes work correctly and do not break other parts of the compiler by running [unit tests and other checks](#testing) frequently.
       You should also [write your own unit tests](#writing-unit-tests).
 
-    - Pull in the master branch regularly to avoid merge conflicts later down the line.
+    - Pull in the `main` branch regularly to avoid merge conflicts later down the line.
 
-      In a feature branch run the following command to merge the latest changes to the master branch on GitHub with your local (currently checked out) feature branch.
+      In a feature branch run the following command to merge the latest changes to the `main` branch on GitHub with your local (currently checked out) feature branch.
 
       ```bash
-      git pull origin master
+      git pull origin main
       ```
 
       If you are working on a fork, you have to add the original repository as a remote first.
@@ -173,10 +175,10 @@ The following instructions guide you through the creation of a pull request and 
       git remote add upstream git@github.com:FreeProving/<REPOSITORY>.git
       ```
 
-      Now you can run the following command to merge the latest changes to the master branch of the original repository on GitHub with the local clone of your fork.
+      Now you can run the following command to merge the latest changes to the `main` branch of the original repository on GitHub with the local clone of your fork.
 
       ```bash
-      git pull upstream master
+      git pull upstream main
       ```
 
     - When making user-facing or other notable changes, add a short entry to the "unreleased" section of the `CHANGELOG.md`.
@@ -216,13 +218,13 @@ The following instructions guide you through the creation of a pull request and 
     Ping a maintainer in a comment below your pull request, informing them that your pull request can be merged now.
 
     Like reviewers, a project maintainer may still request additional changes.
-    If your branch has diverged far from the master branch, they may ask you to pull in the master branch and resolve potential merge conflicts.
+    If your branch has diverged far from the `main` branch, they may ask you to pull in the `main` branch and resolve potential merge conflicts.
     If they do not have any comments, they merge the pull request.
 
     After merging the pull request, the CI pipeline runs again.
-    However this time the checks are performed against the master branch.
+    However this time the checks are performed against the `main` branch.
     It is not your responsibility anymore to make all checks pass in this final run of the CI pipeline.
-    The maintainers are expected to take immediate action if the CI pipeline fails on the master branch.
+    The maintainers are expected to take immediate action if the CI pipeline fails on the `main` branch.
     As a last resort, they may decide to revert the previously merged pull request.
 
 ## Additional Software
@@ -248,11 +250,43 @@ The versions mentioned above are the versions used by our [CI pipelines](#the-ci
 Both tools must be installed in order to [run the CI pipeline locally](#running-the-pipeline-locally).
 If you are not planning to make changes that involve the CI pipeline (i.e., modify Markdown documentation only), you do not have to install these tools.
 
-## Directory Structure
+## Repository Structure
 
 In this section, we would like to give you a quick overview over the general structure of every repository that is part of the FreeProving project.
 These guidelines standardize the organization of repositories such that you as a contributor can quickly find files you are looking for and confidently decide where to place files you want to add even if you are not familiar with the repository otherwise.
 Repositories that deviate from these guidelines, contain additional top-level directories or want to provide more information on their directory structure should include additional information in their READMEs.
+
+### Branch Names
+
+Branches in the repository should adhere to the following naming conventions.
+
+ - `main`
+
+   The default branch of Git repositories that are part of the FreeProving project are called `main`.
+
+   The `main` branch of a repository should be protected.
+   Only maintainers of the FreeProving project and repository administrators can push to the `main` branch directly.
+   All other changes of the `main` branch are coordinated through pull requests (see also [Contributing Code](#contributing-code)).
+
+ - `dev-*`
+
+   Larger features are developed on feature branches with the `dev-` prefix.
+   The same branch protection rules as for `main` apply to `dev-*` branches (i.e., it is not possible to push to these branches directly).
+   Changes to these branches are coordinated through pull requests as well.
+
+ - `issue-*`
+
+   Small features and bug fixes are developed on feature branches with the `issue-` prefix.
+   The full name of a feature branch that contains changes related to a ticket `#N` should be `issue-N`.
+
+ - `*-tests`
+
+   If only test cases are developed on a feature branch, the branch name should have a `-tests` suffix.
+   The full name of a feature branch that contains the tests for the feature or bug fix developed on `issue-N` should be `issue-N-tests`.
+
+### Directory Structure
+
+The directory structure of the repository should be as follows if not stated otherwise in the repository's README.
 
  - `./`
 
@@ -1174,7 +1208,7 @@ When writing markdown documents adhere to the following style considerations.
 
    ```markdown
     [doc/ModuleInterfaceFileFormat.md]:
-      https://github.com/FreeProving/free-compiler/blob/master/doc/ModuleInterfaceFileFormat.md
+      https://github.com/FreeProving/free-compiler/blob/main/doc/ModuleInterfaceFileFormat.md
       "Module Interface File Format — Free Compiler Documentation"
 
     [wiki/ANSI]:
@@ -1307,7 +1341,7 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
   https://github.com/FreeProving/free-compiler
   "Free Compiler on GitHub"
 [free-compiler/haddock/tests]:
-  https://freeproving.github.io/free-compiler/docs/master/freec-unit-tests/
+  https://freeproving.github.io/free-compiler/docs/main/freec-unit-tests/
   "Free Compiler Test Suite — Haddock Documentation"
 
 [FreeProving/issues]:
@@ -1326,7 +1360,7 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
   https://github.com/search?q=is%3Aopen+is%3Apr+user%3AFreeProving+sort%3Acomments-desc
   "Free Compiler — Pull Requests"
 [FreeProving/pull-requests/submit]:
-  https://github.com/FreeProving/guidelines/blob/master/doc/SubmitPullRequest.md
+  https://github.com/FreeProving/guidelines/blob/main/doc/SubmitPullRequest.md
   "Free Compiler — Pull Requests"
 
 [free-proving-code]:
@@ -1367,13 +1401,13 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
   https://github.com/FreeProving/guidelines
   "FreeProving Guidelines on GitHub"
 [guidelines/CODE_OF_CONDUCT]:
-  https://github.com/FreeProving/guidelines/blob/master/CODE_OF_CONDUCT.md
+  https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
   "FreeProving Guidelines — Code of Conduct"
 [guidelines/issues]:
   https://github.com/FreeProving/guidelines/issues
   "FreeProving Guidelines — Issues"
 [guidelines/LICENSE]:
-  https://github.com/FreeProving/guidelines/blob/master/LICENSE
+  https://github.com/FreeProving/guidelines/blob/main/LICENSE
   "FreeProving Guidelines — LICENSE file template"
 [guidelines/pull-requests]:
   https://github.com/FreeProving/guidelines/pulls

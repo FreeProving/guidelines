@@ -13,7 +13,7 @@ The following link to the contributing guidelines of the FreeProving project sho
 See the [contributing guidelines][] of the FreeProving project.
 
 [contributing guidelines]:
-  https://github.com/FreeProving/guidelines/blob/master/CONTRIBUTING.md
+  https://github.com/FreeProving/guidelines/blob/main/CONTRIBUTING.md
   "Contributing Guidelines of the FreeProving project"
 ```
 
@@ -28,7 +28,7 @@ The Free Proving project and everyone participating in it is governed by our [Co
 By participating, you are expected to uphold this code.
 
 [CODE_OF_CONDUCT]:
-  https://github.com/FreeProving/guidelines/blob/master/CODE_OF_CONDUCT.md
+  https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
   "Code of Conduct of the FreeProving project"
 ```
 
@@ -38,7 +38,7 @@ Include the following comment in every pull request or issue template to make co
 <!--
   Have you read our Code of Conduct?
   By filing an issue or pull request, you are expected to comply with it, including treating everyone with respect:
-  https://github.com/FreeProving/guidelines/blob/master/CODE_OF_CONDUCT.md
+  https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
 -->
 ```
 
@@ -63,5 +63,5 @@ The copyright holders of the individual repositories may differ.
 Some repositories may choose a different license if necessary.
 
 [guidelines/LICENSE]:
-  https://github.com/FreeProving/guidelines/blob/master/LICENSE
+  https://github.com/FreeProving/guidelines/blob/main/LICENSE
   "FreeProving Guidelines — LICENSE file template"
