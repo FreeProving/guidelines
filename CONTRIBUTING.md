@@ -82,8 +82,7 @@ If the problem persists in the latest version and you cannot find a related bug 
  - Include information about your configuration and environment.
 
     + **Which version of the repository are you using?**
-      If you are using the Free Compiler, you can get the exact version by running `freec --version` in your terminal.
-      Otherwise, run `git rev-parse HEAD` in your terminal in the repository's root directory to get the hash of the currently checked out Git commit.
+      Run `git rev-parse HEAD` in your terminal in the repository's root directory to get the hash of the currently checked out Git commit.
     + **What's the name and version of the operating system you are using?**
     + **What versions of GHC and Cabal are you using?**
     + **How are you running the Free Compiler?** Have you installed the compiler as described in the README, are you running it using Cabal or do you use one of our Bash scripts?
