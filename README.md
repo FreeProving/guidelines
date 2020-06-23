@@ -44,8 +44,14 @@ Include the following comment in every pull request or issue template to make co
 
 ## Issue templates
 
-The `ISSUE_TEMPLATE` directories contains templates for issue templates.
+The `ISSUE_TEMPLATE` directory contains templates for issues.
 These templates can be copied to the `.github/ISSUE_TEMPLATE` directory of all other repositories.
+Adapt the templates if necessary.
+
+## Pull request templates
+
+The `PULL_REQUEST_TEMPLATE` directory contains templates for pull requests.
+These templates can be copied to the `.github/PULL_REQUEST_TEMPLATE` directory of all other repositories.
 Adapt the templates if necessary.
 
 ## CI Pipeline and Bash scripts
