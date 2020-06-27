@@ -42,19 +42,19 @@ Include the following comment in every pull request or issue template to make co
 -->
 ```
 
-## Issue templates
+## Issue Templates
 
 The `ISSUE_TEMPLATE` directory contains templates for issues.
 These templates can be copied to the `.github/ISSUE_TEMPLATE` directory of all other repositories.
 Adapt the templates if necessary.
 
-## Pull request templates
+## Pull Request Template
 
-The `PULL_REQUEST_TEMPLATE` directory contains templates for pull requests.
-These templates can be copied to the `.github/PULL_REQUEST_TEMPLATE` directory of all other repositories.
-Adapt the templates if necessary.
+The `PULL_REQUEST_TEMPLATE.md` file contains the default template for pull requests.
+This template can be copied to the `.github/PULL_REQUEST_TEMPLATE.md` file of all other repositories.
+Adapt the template if necessary.
 
-## CI Pipeline and Bash scripts
+## CI Pipeline and Bash Scripts
 
 The contributing guidelines assume that the repository has a GitHub Actions continuous integration (CI) pipeline.
 The configuration can be copied from the CI pipeline of the Free Compiler.

@@ -187,7 +187,7 @@ The following instructions guide you through the creation of a pull request and 
 
  4. **Create a pull request**
 
-    Once you have implemented all changes and convinced yourself that everything is working as intended, you are ready to [submit a pull request][FreeProving/pull-requests/submit] by filling out the *generic* template for pull requests.
+    Once you have implemented all changes and convinced yourself that everything is working as intended, you are ready to [submit a pull request][FreeProving/pull-requests/submit] by filling out the default template for pull requests.
     If you are not fully done yet but want feedback on what you have done so far or need help for how to continue, you can also draft a pull request before.
 
     Provide the following information when submitting a pull request.
