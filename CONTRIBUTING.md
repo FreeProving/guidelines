@@ -551,6 +551,7 @@ The following general guidelines apply in every language if not noted otherwise 
  - **Use UTF-8 encoded text files**
 
    All text files (i.e., source code, Markdown documents, configuration files etc.) should be UTF-8 encoded if not demanded otherwise by the corresponding language specification.
+   Avoid [UTF-8 byte order marks (BOMs)][wiki/BOM] at the start of the file unless it is required by tools that process the files.
 
  - **Use spaces, not tabs**
 
@@ -1478,3 +1479,7 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [software/Hspec/Spec]:
   https://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html#t:Spec
   "Test.Hspec — type Spec"
+
+[wiki/BOM]:
+  https://en.wikipedia.org/wiki/Byte_order_mark
+  "Byte order mark — Wikipedia"
