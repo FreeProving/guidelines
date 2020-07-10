@@ -811,9 +811,16 @@ The following is a list of additional guidelines that are not yet covered by the
 
 The `.hlint.yaml` file lists common aliases for modules.
 All of these modules should be imported `qualified` and `as` the corresponding alias.
+Avoid to import modules `qualified` if they do not have an entry in `.hlint.yaml`.
+Add an entry if necessary.
 
-For example, the module `Data.Set` should always be imported as follows.
-Do not chose a different alias or omit the alias.
+For example, if there is the following entry, the module `Data.Set` should always be imported as `Set`.
+Do not chose a different alias such as `S` or omit the alias.
+
+```yaml
+ - modules:
+   - {name: [ Data.Set ], as: Set}
+```
 
 ```haskell
 import qualified Data.Set                      as Set      -- DO
