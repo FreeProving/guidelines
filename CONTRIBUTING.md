@@ -321,6 +321,19 @@ The directory structure of the repository should be as follows if not stated oth
    In case of the Free Compiler there are Haskell modules that can (or cannot) be compiled for example.
    More details about the examples and how to check out the examples should be provided in the repository's README.
 
+ - `./floskell.toml` and `./floskell.json`
+
+   The `./floskell.toml` configuration file contains repository-specific [Floskell][#floskell] formatting options.
+   Floskell usually requires a JSON configuration file.
+   However, in order to add comments to the configuration file, we are using [TOML][toml/v0.4.0] instead.
+   The TOML file is then used in conjunction with the Floskell [template configuration][guidelines/floskell.toml] file in the [guidelines][] repository to generate the `./floskell.json` file.
+   See the comments in the template file for more information.
+
+   Even though `./floskell.json` is a generated file, we allow it to be committed in order to ease the transition to Floskell.
+   It should not be modified manually.
+   Each repository should provide a `./tool/update-floskell-config.sh` script to regenerate the `./floskell.json` file from the current repository-specific configuration and the latest version of the template.
+   Usually, only maintainers need to run this script or update the Floskell configuration.
+
  - `./img`
 
    This directory contains images that are embedded into the README or other Markdown documents.
@@ -952,6 +965,7 @@ If there are Haskell source files that have not been formatted using `floskell`,
 The same check is performed by the `./tool/check-formatting.sh` and `./tool/full-test.sh` scripts.
 
 There is Floskell support for various editors (see also [Editor Integration][software/Floskell#editor-integration]).
+Make sure that the Plugin for your editor uses our `floskell.json` configuration file.
 If your editor is not supported, you can use the following shell script that we provide.
 
 ```haskell
@@ -1413,6 +1427,9 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [guidelines/CODE_OF_CONDUCT]:
   https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
   "FreeProving Guidelines — Code of Conduct"
+[guidelines/floskell.toml]:
+  https://github.com/FreeProving/guidelines/blob/floskell/floskell.toml
+  "FreeProving Guidelines — Floskell Template Configuration File"
 [guidelines/issues]:
   https://github.com/FreeProving/guidelines/issues
   "FreeProving Guidelines — Issues"
@@ -1486,6 +1503,10 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [software/Hspec/Spec]:
   https://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html#t:Spec
   "Test.Hspec — type Spec"
+
+[toml/v0.4.0]:
+  https://toml.io/en/v0.4.0
+  "TOML ­— Version 0.4.0"
 
 [wiki/BOM]:
   https://en.wikipedia.org/wiki/Byte_order_mark
