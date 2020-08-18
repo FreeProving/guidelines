@@ -139,7 +139,7 @@ fixities = [
 
   # The following rules control how many whitespaces are used to indent a
   # new line when a line break is inserted.
-  [formatting.ident]
+  [formatting.indent]
     # The body of class and instance declarations is indented by two spaces.
     class            = "indent-by 2"
 
