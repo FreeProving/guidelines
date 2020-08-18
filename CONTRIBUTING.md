@@ -323,7 +323,7 @@ The directory structure of the repository should be as follows if not stated oth
 
  - `./floskell.toml` and `./floskell.json`
 
-   The `./floskell.toml` configuration file contains repository-specific [Floskell][#floskell] formatting options.
+   The `./floskell.toml` configuration file contains repository-specific [Floskell](#floskell) formatting options.
    Floskell usually requires a JSON configuration file.
    However, in order to add comments to the configuration file, we are using [TOML][toml/v0.4.0] instead.
    The TOML file is then used in conjunction with the Floskell [template configuration][guidelines/floskell.toml] file in the [guidelines][] repository to generate the `./floskell.json` file.
@@ -871,7 +871,7 @@ Before and after the comment with the heading, there should be a comment that co
 If the comment does not start in the first column of the source file, there may be fewer dashes to satisfy the 80 character limit per line.
 There are two trailing dashes at the end of the heading comment which align with the last two dashes of the other two comments.
 
-> **Note:** [Floskell][#floskell] currently [removes blank lines after comments][software/Floskell/issues/28].
+> **Note:** [Floskell](#floskell) currently [removes blank lines after comments][software/Floskell/issues/28].
 > Thus a heading comment will be joined with the next Haddock comment.
 >
 > ```haskell
