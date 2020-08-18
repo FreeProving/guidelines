@@ -245,7 +245,7 @@ An introduction to Git's command line interface can be found [here][Git/Tutorial
 We recommend installing the following tools if you want to contribute Haskell code.
 Both of these tools are used to make sure that we are using a consistent code style throughout the project and are described in more detail in the [Haskell Styleguide](#haskell-styleguide) below.
 
- - [Brittany][software/Brittany], 0.12.1.1
+ - [Floskell][software/Floskell], 0.10.4
  - [HLint][software/HLint], version 3.1.1
 
 The versions mentioned above are the versions used by our [CI pipelines](#the-ci-pipeline).
@@ -482,8 +482,8 @@ You can find the corresponding workflow configuration file in `.github/workflows
 
 The CI pipeline of most repositories checks whether
 
- - the code has been formatted with [Brittany][software/Brittany]
- - [HLint][software/HLint] prints no hint that is not explicitly ignored in `.hlint.yaml`
+ - the code has been formatted with [Floskell][software/Floskell],
+ - [HLint][software/HLint] prints no hint that is not explicitly ignored in `.hlint.yaml`,
  - the executables and the unit tests compile without warnings,
  - all unit tests pass and
  - Haddock generates the documentation without errors and there
@@ -907,7 +907,7 @@ foo x = (xx, xx)
  - Prefer meaningful names over short variable names
 
    The name of a variable should tell you something about it's type, what it is used for or where it is coming from.
-  Don't over use abbreviations!
+   Don't over use abbreviations!
    If you abbreviate a variable name, stick with the naming conventions established by the remaining code in the repository you contribute to.
    If have to deviate from those implicit naming conventions, try to be consistent with the code in the same module.
 
@@ -915,11 +915,10 @@ foo x = (xx, xx)
    The variable name should still be meaningful.
    For example, an lists should have the suffix `s` or monadic values the prefix `m`.
 
-   A consequence of meaningful variable names is that the left-hand sides of function declarations can get quite long.
-   Unfortunately, [Brittany](#brittany) does not insert line breaks on the left-hand sides of function declarations (in fact, all line breaks are removed automatically by Brittany).
-   However, meaningful variables are more important than short lines.
-   Thus, it is okay, if the left-hand side of a function declaration exceeds the 80 character line length limit.
-   Nonetheless, if a single variable name approaches this limit you definitely did something wrong :wink:
+   A consequence of meaningful variable names is that lines can get quite long.
+   [Floskell](#floskell) automatically breaks long lines and idents the code appropriately.
+   Thus, you don't have to worry about the 80 character line length limit.
+   Nonetheless, if a single variable name approaches this limit, you definitely did something wrong :wink:
    Meaningful variable names do not necessarily have to be long!
 
 ##### Grouping source code
@@ -939,20 +938,20 @@ Before and after the comment with the heading, there should be a comment that co
 If the comment does not start in the first column of the source file, there may be fewer dashes to satisfy the 80 character limit per line.
 There are two trailing dashes at the end of the heading comment which align with the last two dashes of the other two comments.
 
-#### Brittany
+#### Floskell
 
-[Brittany][software/Brittany] is a code formatter for Haskell.
+[Floskell][software/Floskell] is a code formatter for Haskell.
 It can be installed via Cabal as follows.
 
 ```haskell
-cabal new-install brittany
+cabal new-install floskell
 ```
 
-The [CI pipeline](#the-ci-pipeline) runs `brittany` on all Haskell source files in the `src` and `example` directories and compares its output with the committed files.
-If there are Haskell source files that have not been formatted using `brittany`, the CI pipeline fails.
+The [CI pipeline](#the-ci-pipeline) runs `floskell` on all Haskell source files in the `src` and `example` directories and compares its output with the committed files.
+If there are Haskell source files that have not been formatted using `floskell`, the CI pipeline fails.
 The same check is performed by the `./tool/check-formatting.sh` and `./tool/full-test.sh` scripts.
 
-There is Brittany support for various editors (see also [Editor Integration][software/Brittany#editor-integration]).
+There is Floskell support for various editors (see also [Editor Integration][software/Floskell#editor-integration]).
 If your editor is not supported, you can use the following shell script that we provide.
 
 ```haskell
@@ -962,10 +961,6 @@ If your editor is not supported, you can use the following shell script that we 
 If no files are specified, all Haskell source files in the `src` and `example` directory are formatted by default.
 Note that the script overwrites the formatted files.
 Thus, you should create a backup beforehand by `git add`ing your changes, for example.
-
-Of course Brittany is not perfect.
-Among others, data type declarations are not formatted at the moment.
-So don't rely entirely on the output of our automatic tests and manually check your code nonetheless according to the rules outlined above.
 
 #### HLint
 
@@ -1245,7 +1240,7 @@ Links of the form `[...](URL)` should be used for internal references only (i.e.
 ##### Format and syntax highlight code snippets
 
 When you use code snippets in your Markdown document (and you probably should be!) format the embedded source code as you would format any other source code.
-For example, if you have an example involving Haskell code, format that code using Brittany first.
+For example, if you have an example involving Haskell code, format that code using Floskell first.
 
 You should use [fenced code blocks][Markdown/fenced-code-blocks] rather than indented code blocks and specify the language of the embedded source code explicitly.
 For example, if you want to give an example hello world program written in Haskell, embed the source code as follows.
@@ -1467,12 +1462,12 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
   https://github.github.com/gfm/#link-reference-definition
   "GitHub Flavored Markdown Spec — Link reference definitions"
 
-[software/Brittany]:
-  https://github.com/lspitzner/brittany/
-  "Brittany"
-[software/Brittany#editor-integration]:
-  https://github.com/lspitzner/brittany/#editor-integration
-  "Brittany — Editor Integration"
+[software/Floskell]:
+  https://github.com/ennocramer/floskell
+  "Floskell"
+[software/Floskell#editor-integration]:
+  https://github.com/ennocramer/floskell#editor-integration
+  "Floskell — Editor Integration"
 [software/Haddock]:
   https://www.haskell.org/haddock/
   "Haddock"
