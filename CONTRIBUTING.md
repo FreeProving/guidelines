@@ -775,51 +775,6 @@ We are using automatic code formatters and linters to enforce a consistent code 
 The tools we are using are covered by the subsections below.
 The following is a list of additional guidelines that are not yet covered by the tools.
 
-##### Separate imports of internal and external modules
-
- - The import declarations for modules from other packages should precede all imports of modules from this repository.
-   The two blocks of import declarations are separated by a blank line.
-
-   ```haskell
-   import           Control.Monad
-   import           Data.List
-
-   import           FreeC.Environment
-   ```
-
- - If you are hiding imports from the `Prelude` module, separate the corresponding `import` declaration from all other imports by a blank line.
-   Sort the explicit import of the `Prelude` before all others.
-
-   ```haskell
-   import           Prelude                 hiding ( fail )
-
-   import           Control.Monad.Fail             ( MonadFail(..) )
-   import           Control.Monad.State            ( MonadState(..) )
-   ```
-
-##### Sort imports alphabetically
-
- - Within the individual blocks of import declarations, the imports are sorted alphabetically by the name of the imported module.
-
-   ```haskell
-   import           Control.Monad
-   import           Data.List
-   ```
-
- - If a module is imported qualified and unqualified, the unqualified import goes first.
-
-   ```haskell
-   import           Data.Set                       ( Set )
-   import qualified Data.Set                      as Set
-   ```
-
- - If the name of a module is prefixed with the name of another imported module, sort the module with the shorter name first.
-
-   ```haskell
-   import           Data.Set                       ( Set )
-   import           Data.Set.Ordered               ( OSet )
-   ```
-
 ##### Use qualified imports
 
 The `.hlint.yaml` file lists common aliases for modules.
@@ -848,41 +803,6 @@ import           Data.Set                       ( Set
                                                 , (\\)
                                                 )          -- OKAY
 ```
-
-##### Align constructors of data type declarations
-
-If the constructors of a data type declaration do not fit in one line, align them as follows.
-
-```haskell
-data Tree a
-  = Leaf a
-  | Branch (Tree a) (Tree a)
- deriving (Eq, Show)
-```
-
-The constructors are indented by two spaces and the `deriving` clause is indented by a single space.
-
-##### Align fields of record constructors
-
-In record constructors, each field is listed on it's own line.
-The type signatures are aligned.
-
-```haskell
-data Person = Person
-  { firstName :: String
-  , lastName  :: String
-  , age       :: Int
-  }
- deriving (Eq, Show)
-```
-
-If there is just a single field (e.g. in a `newtype` declaration) you can write the entire data type on one line if it fits.
-
-```haskell
-newtype State s a = State { runState :: s -> (a, s) }
-```
-
-The `deriving` clause still belongs on its own line and is indented by a single space.
 
 ##### Add type signatures for all function declarations
 
@@ -950,6 +870,19 @@ The comment contains a heading (such as "Smart Constructors") that concisely sum
 Before and after the comment with the heading, there should be a comment that contains 79 `-` characters.
 If the comment does not start in the first column of the source file, there may be fewer dashes to satisfy the 80 character limit per line.
 There are two trailing dashes at the end of the heading comment which align with the last two dashes of the other two comments.
+
+> **Note:** [Floskell][#floskell] currently [removes blank lines after comments][software/Floskell/issues/28].
+> Thus a heading comment will be joined with the next Haddock comment.
+>
+> ```haskell
+> -------------------------------------------------------------------------------
+> -- Heading                                                                   --
+> -------------------------------------------------------------------------------
+> -- | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rutrum
+> --   facilisis nisi, eget dictum metus tempus vitae.
+> ```
+>
+> Once this issue is resolved, the blank lines have to be inserted again manually.
 
 #### Floskell
 
@@ -1485,6 +1418,9 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [software/Floskell#editor-integration]:
   https://github.com/ennocramer/floskell#editor-integration
   "Floskell — Editor Integration"
+[software/Floskell/issues/28]:
+  https://github.com/ennocramer/floskell/issues/28
+  "Floskell — Preserve blank lines between comments and surrounding syntax elements — Issue 28"
 [software/Haddock]:
   https://www.haskell.org/haddock/
   "Haddock"
