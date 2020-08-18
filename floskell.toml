@@ -1,0 +1,334 @@
+# Floskell Configuration Template
+# ===============================
+#
+# This is a template for the Floskell configuration file. Floskell uses the
+# JSON file format for its configuration.
+# Unfortunatly, JSON does not support comments. Thus, this file is using
+# The TOML configuration file format instead. Therefore, the file needs to
+# be converted to JSON before it can be used. If you have `docker` installed,
+# you can use the following command for the conversion.
+#
+#     docker run -v $PWD:/pwd just95/toml-to-json /pwd/floskell.toml
+#
+# See <https://github.com/toml-lang/toml/wiki#converters> for a list of
+# other TOML converters.
+#
+# > **Note:** Even though the `floskell.json` file is a generated file, we
+# > currently allow it to be committed to ease the transition to Floskell.
+# > In the future, we may want to generate the JSON file automatically in
+# > the formatting scripts.
+#
+# See <https://github.com/ennocramer/floskell/blob/master/CONFIGURATION.md>
+# for a description of Floskell's configuration options.
+#
+# Some additional configuration options have to be set on a per-repository
+# level. See the "Per-Repository Configuration" comment below.
+style = "base"
+language = "Haskell2010"
+
+# Per-Repository Configuration
+# ----------------------------
+#
+# Some configuration options are repository-specific. Each repository should
+# contain a `floskell.toml` file that contains ONLY the repository-specific
+# options. When generating the `floskell.json` file the repository-specific
+# file should be merged with this template file. Merging and conversion to JSON
+# can be performed either automatically with the following command, for example.
+#
+#     docker run -v $PWD:/pwd just95/toml-to-json \
+#       /pwd/guidelines/floskell.toml             \
+#       /pwd/other-repo/floskell.toml
+#
+# The repository should contain a `./tool/update-floskell-config.sh` script
+# for this task.
+#
+# The following top-level key/value pairs are required.
+#
+#     * `extensions` (`Array` of `String`) the extension that are enabled for
+#       all modules (i.e., the `default-extensions` configured in the `.cabal`
+#       file).
+#     * `fixities` (`Array` of `String`) a list of fixity declarations of the
+#       form `infix[l|r] <PRECEDENCE> <OPERATOR>`. Floskell formats individual
+#       modules and does not inspect imported modules. If a module imports an
+#       infix operator from another module, Floskell needs to know the
+#       associtivity and precedence of the operator to parse the module
+#       correctly. Thus, the fixities of all imported infix operators have
+#       to be listed here. Unfortunatly, this means that all infix operator
+#       names must be unique. Avoid the definition of custom infix operators
+#       as well as the use third-party infix operators to prevent name clashes.
+#
+# Additionally, an entry of the `formatting.options.sort-imports` array of
+# tables us needed. See the comment at the bottom of this file for details.
+extensions = [
+    # INSERT DEFAULT LANGUAGE EXTENSIONS HERE
+  ]
+fixities = [
+    # INSERT FIXITY DECLARATIONS HERE
+  ]
+
+# Global Configuration
+# --------------------
+#
+# The following options should be the same across all repositories of the
+# FreeProving project. Do NOT modify the settings below.
+[formatting]
+  # Floskell uses a penalty function to decide where to insert linebreaks.
+  # The following are parameters of the penalty function.
+  #
+  #  * `indent`:          Penalty for each indentation character.
+  #  * `linebreak`:       Penalty for each line.
+  #  * `max-line-length`: Character limit for each line.
+  #  * `overfull`:        Penalty for each character over the line limit.
+  #  * `overfull-once`:   Penalty for each overfull line.
+  #
+  # Most values are the default values. However, the penalty for overfull lines
+  # has been increased. Otherwise, Floskell sometimes does not break long lines
+  # since the cost for a linebreak exceeds the cost for the overflow. However,
+  # we never want a line to exceed the maximum line length of 80 characters if
+  # it is possible to do so.
+  [formatting.penalties]
+    indent          = 1
+    linebreak       = 100
+    max-line-length = 80
+    overfull        = 100
+    overfull-once   = 1000
+
+  # The following rules control when line breaks are inserted.
+  [formatting.layout]
+    # If the export list fits on the same line as the module header, no line
+    # break is added. However, if it does not fit, all exported items are
+    # listed vertically.
+    # Import specifier lists also try to be on the same line but if they need
+    # to be broken to the next line, the imports are listed horizontally such
+    # that as little vertical space is occupied as possible.
+    export-spec-list = "try-oneline"
+    import-spec-list = "flex"
+
+    # In regular applications, as many arguments as possible are written to the
+    # same line as possible.
+    # In infix applications on the other hand, a line break is inserted before
+    # every operator if the expression does not fit into a single line.
+    app              = "flex"
+    infix-app        = "try-oneline"
+
+    # The equal sign of multi-line function declarations appears on the same
+    # line if it fits.
+    declaration      = "flex"
+
+    # If all constructors of a data type declaration fit into a single line,
+    # no line breaks are inserted. Otherwise each constructor is on its own
+    # line.
+    con-decls        = "try-oneline"
+
+    # If a `if`- or `let`-expression does not fit in a single line, the `in`,
+    # `then` and `else` expressions are broken into their own lines.
+    # For example, `then` and `else` don't share a line unless the entire
+    # `if` expression fits on the line.
+    if               = "try-oneline"
+    let              = "try-oneline"
+
+    list-comp        = "flex"
+
+    # Unless a record construction or update does fit on a single line, each
+    # field is listed on its own line.
+    record           = "try-oneline"
+
+    # If a type signature does not fit on a single line, each argument is
+    # listed on its own line.
+    type             = "try-oneline"
+
+  # The following rules control how many whitespaces are used to indent a
+  # new line when a line break is inserted.
+  [formatting.ident]
+    # The body of class and instance declarations is indented by two spaces.
+    class            = "indent-by 2"
+
+    # The first alternative of a `case`-expression or the first statement of a
+    # `do`-block starts on a new line and is indented by two spaces.
+    case = "indent-by 2"
+    do   = "indent-by 2"
+
+    # If an export or import specifier list does not fit into the same line as
+    # the module header or import declaration they are broken into the next
+    # line and indented by two spaces.
+    export-spec-list = "indent-by 2"
+    import-spec-list = "indent-by 2"
+
+    # The following options ensure that
+    #
+    #  * the `let` and `in` keywords are vertically aligned.
+    #  * the `in`-expression follows the `in` keyword and is not broken to the
+    #    next line.
+    #  * the first binding follows the `let` keyword and is not broken into the
+    #    next line. All subsequent bindings are aligned with the first.
+    let       = "align"
+    let-in    = "align"
+    let-binds = "align"
+
+    # The `then` and `else` branches of an `if` expression are indented by 2
+    # spaces.
+    if       = "indent-by 2"
+    multi-if = "indent-by 2"
+
+    # Deriving and `where`-clauses are indented by a single space only.
+    # The contents of the `where`-block are indented by two spaces.
+    deriving    = 1
+    where       = 1
+    where-binds = "indent-by 2"
+
+    # Floskell does not break `::` into the next line if a type signature does
+    # not fit into a single line. This option aligns the `->` of the subsequent
+    # arguments with the `::` of the first argument.
+    typesig = "align"
+
+    # If an application expression does not fit into or a line break has to be
+    # inserted anywhere else, the new line is indented by two spaces.
+    app              = "indent-by 2"
+    onside           = 2
+
+  # The following rules control tabstop alignment and alignment limits.
+  [formatting.align]
+    # The following rules enable tabstop alignment everywhere except for
+    # import specifier lists. In consequence the import specifier list of
+    # `Foo` is not aligned with the the list of `Bar.Baz` in the example
+    # below. The import specifier list always follows the moduke name if
+    # it fits in the same line.
+    #
+    #     import           Foo (foo)
+    #     import           Bar.Baz (bar, baz)
+    case          = true
+    class         = true
+    import-module = true
+    import-spec   = false
+    let-binds     = true
+    matches       = true
+    record-fields = true
+    where         = true
+
+    # The following option controls the limits of tabstop alignment.
+    # According to Floskells documentation the numbers are to be interpreted
+    # as follows.
+    #
+    # > the first integer is a number of characters (absolute limit) and the
+    # > second value is a percentage (relvative limit).
+    # > Alignment will be disabled if the length of any inserted padding is
+    # > larger than absolute limit and is larger than relative limit of the
+    # > maximum field length (tabstop column minus indentation).
+    #
+    # We are using the default configuration, i.e. an absolute limit of 10
+    # characters and a relative limit of 25%. We may want to tweak these
+    # values in the future, though.
+    limits = [10, 25]
+
+  # The following rules control where to insert whitespace in parentheses,
+  # backets and braces.
+  [formatting.group]
+    # By default there are spaces after the opening delimiter and before the
+    # closing delimiter of a group. This rule applies to record constructors
+    # for example.
+    [formatting.group.default]
+      force-linebreak = false
+      spaces          = "both"
+      linebreaks      = "after"
+
+    # No whitespace is added to parentheses in expressions, types and contexts.
+    [formatting.group."("]
+      force-linebreak = false
+      spaces          = "none"
+      linebreaks      = "after"
+
+    # However, whitespace is added to parentheses in import and export
+    # specifier lists.
+    [formatting.group."( in other"]
+      force-linebreak = false
+      spaces          = "both"
+      linebreaks      = "after"
+
+    # There are no spaces after and before the delimiters of list literals.
+    [formatting.group."["]
+      force-linebreak = false
+      spaces          = "none"
+      linebreaks      = "after"
+
+    # For some reason, the rule above does not apply to list types. Thus, it
+    # has to be replicated explicitly.
+    [formatting.group."[ in type"]
+      force-linebreak = false
+      spaces          = "none"
+      linebreaks      = "after"
+
+  # The following rules control where to insert whitespace in around operators.
+  [formatting.op]
+    # By default there is a space before and after an infix operator. If an
+    # infix application has to be broken over multiple lines, the operator
+    # is moved to the next line.
+    [formatting.op."default"]
+      force-linebreak = false
+      spaces          = "both"
+      linebreaks      = "before"
+
+    # There is no space before the comma in tuple types and literals.
+    [formatting.op.","]
+      force-linebreak = false
+      spaces          = "after"
+      linebreaks      = "before"
+
+    # In lambda expressions and `case` expression alternatives, the arrow is
+    # not broken into the next line.
+    [formatting.op."-> in expression"]
+      force-linebreak = false
+      spaces          = "both"
+      linebreaks      = "after"
+
+  # The following options.
+  [formatting.options]
+    # The equal sign and pipe characters are aligned in data type declarations.
+    align-sum-type-decl = true
+
+    # Blank lines are inserted between every declaration on top-level, in
+    # `where`-blocks and in `class` as well as `instance` declarations.
+    decl-no-blank-lines = []
+
+    # `do`-blocks, `case`- and lambda expressions are not allowed in
+    # `try-oneline` layouts.
+    flexible-oneline = false
+
+    # There should be only one blank line between declarations. Redundant
+    # vertical space is removed by Floskell.
+    preserve-vertical-space = false
+
+    # The import specifier lists, pragmas and language extension pragmas are
+    # sorted alphabetically.
+    sort-import-lists      = true
+    sort-pragmas           = true
+    split-language-pragmas = true
+
+    # The following array of tables controls how imports are sorted.
+    # Each entry defines a group of import declarations. Import groups are
+    # separated by a blank lines. Within import groups, the indidual import
+    # declarations are sorted by the module name.
+    #
+    # The first group contains the `Prelude` module only. Thus, if a module
+    # hides declarations from the `Prelude`, this is communicated by the first
+    # declaration of the module.
+    [[formatting.options.sort-imports]]
+      prefixes = ["Prelude"]
+      order    = "sorted"
+
+    # The second group contains all imports of modules that don't belong to
+    # another group.
+    [[formatting.options.sort-imports]]
+      prefixes = [""]
+      order    = "sorted"
+
+    # The third group is repository-specific. It contains all modules that are
+    # defined in the current repository. The repository-specific `floskell.toml`
+    # file should contain an entry of the following form.
+    #
+    #     [[formatting.options.sort-imports]]
+    #       prefixes = ["My.Package.Prefix"] # INSERT ACTUAL PREFIX HERE
+    #       order    = "sorted"
+    #
+    # Note: since the order of array of table entries matters, it is important
+    # to add the entry here and not at the top of the file where the other
+    # repository-specific options can be found.
