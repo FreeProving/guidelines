@@ -33,7 +33,7 @@ language = "Haskell2010"
 # contain a `floskell.toml` file that contains ONLY the repository-specific
 # options. When generating the `floskell.json` file the repository-specific
 # file should be merged with this template file. Merging and conversion to JSON
-# can be performed either automatically with the following command, for example.
+# can be performed automatically with the following command, for example.
 #
 #     docker run -v $PWD:/pwd just95/toml-to-json \
 #       /pwd/guidelines/floskell.toml             \
@@ -44,7 +44,7 @@ language = "Haskell2010"
 #
 # The following top-level key/value pairs are required.
 #
-#     * `extensions` (`Array` of `String`) the extension that are enabled for
+#     * `extensions` (`Array` of `String`) the extensions that are enabled for
 #       all modules (i.e., the `default-extensions` configured in the `.cabal`
 #       file).
 #     * `fixities` (`Array` of `String`) a list of fixity declarations of the
@@ -55,10 +55,10 @@ language = "Haskell2010"
 #       correctly. Thus, the fixities of all imported infix operators have
 #       to be listed here. Unfortunatly, this means that all infix operator
 #       names must be unique. Avoid the definition of custom infix operators
-#       as well as the use third-party infix operators to prevent name clashes.
+#       as well as the use of third-party infix operators to prevent name clashes.
 #
 # Additionally, an entry of the `formatting.options.sort-imports` array of
-# tables us needed. See the comment at the bottom of this file for details.
+# tables is needed. See the comment at the bottom of this file for details.
 extensions = [
     # INSERT DEFAULT LANGUAGE EXTENSIONS HERE
   ]
@@ -120,10 +120,10 @@ fixities = [
     # line.
     con-decls        = "try-oneline"
 
-    # If a `if`- or `let`-expression does not fit in a single line, the `in`,
+    # If a `if`- or `let`-expression does not fit in a single line, the `if`,
     # `then` and `else` expressions are broken into their own lines.
     # For example, `then` and `else` don't share a line unless the entire
-    # `if` expression fits on the line.
+    # `if` expression fits in one line.
     if               = "try-oneline"
     let              = "try-oneline"
 
@@ -149,7 +149,7 @@ fixities = [
     do   = "indent-by 2"
 
     # If an export or import specifier list does not fit into the same line as
-    # the module header or import declaration they are broken into the next
+    # the module header or import declaration, they are broken into the next
     # line and indented by two spaces.
     export-spec-list = "indent-by 2"
     import-spec-list = "indent-by 2"
@@ -181,7 +181,7 @@ fixities = [
     # arguments with the `::` of the first argument.
     typesig = "align"
 
-    # If an application expression does not fit into or a line break has to be
+    # If an application expression does not fit into a line or a line break has to be
     # inserted anywhere else, the new line is indented by two spaces.
     app              = "indent-by 2"
     onside           = 2
@@ -191,7 +191,7 @@ fixities = [
     # The following rules enable tabstop alignment everywhere except for
     # import specifier lists. In consequence the import specifier list of
     # `Foo` is not aligned with the the list of `Bar.Baz` in the example
-    # below. The import specifier list always follows the moduke name if
+    # below. The import specifier list always follows the module name if
     # it fits in the same line.
     #
     #     import           Foo (foo)
@@ -206,11 +206,11 @@ fixities = [
     where         = true
 
     # The following option controls the limits of tabstop alignment.
-    # According to Floskells documentation the numbers are to be interpreted
+    # According to Floskell's documentation the numbers are to be interpreted
     # as follows.
     #
     # > the first integer is a number of characters (absolute limit) and the
-    # > second value is a percentage (relvative limit).
+    # > second value is a percentage (relative limit).
     # > Alignment will be disabled if the length of any inserted padding is
     # > larger than absolute limit and is larger than relative limit of the
     # > maximum field length (tabstop column minus indentation).
@@ -221,7 +221,7 @@ fixities = [
     limits = [10, 25]
 
   # The following rules control where to insert whitespace in parentheses,
-  # backets and braces.
+  # brackets and braces.
   [formatting.group]
     # By default there are spaces after the opening delimiter and before the
     # closing delimiter of a group. This rule applies to record constructors
@@ -280,7 +280,7 @@ fixities = [
       spaces          = "both"
       linebreaks      = "after"
 
-  # The following options.
+  # The formatting options.
   [formatting.options]
     # The equal sign and pipe characters are aligned in data type declarations.
     align-sum-type-decl = true
