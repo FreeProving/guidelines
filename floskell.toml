@@ -189,18 +189,11 @@ fixities = [
 
   # The following rules control tabstop alignment and alignment limits.
   [formatting.align]
-    # The following rules enable tabstop alignment everywhere except for
-    # import specifier lists. In consequence the import specifier list of
-    # `Foo` is not aligned with the the list of `Bar.Baz` in the example
-    # below. The import specifier list always follows the module name if
-    # it fits in the same line.
-    #
-    #     import           Foo (foo)
-    #     import           Bar.Baz (bar, baz)
+    # Tabstop alignment is enabled everywhere.
     case          = true
     class         = true
     import-module = true
-    import-spec   = false
+    import-spec   = true
     let-binds     = true
     matches       = true
     record-fields = true
