@@ -171,10 +171,11 @@ fixities = [
     multi-if = "indent-by 2"
 
     # Deriving and `where`-clauses are indented by a single space only.
-    # The contents of the `where`-block are indented by two spaces.
+    # The contents of the `where`-block are indented by two spaces (one space
+    # for the `where` keyword plus another space before each binding).
     deriving    = 1
     where       = 1
-    where-binds = "indent-by 2"
+    where-binds = "indent-by 1"
 
     # Floskell does not break `::` into the next line if a type signature does
     # not fit into a single line. This option aligns the `->` of the subsequent
