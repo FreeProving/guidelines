@@ -134,7 +134,10 @@ fixities = [
     #       Bar -> baz in qux
     let              = "vertical"
 
-    list-comp        = "flex"
+    # If a list comprehension does not fit into a single line, all statements
+    # are broken into their own lines to such that the reader does not miss
+    # a condition.
+    list-comp        = "try-oneline"
 
     # Unless a record construction or update does fit on a single line, each
     # field is listed on its own line.
