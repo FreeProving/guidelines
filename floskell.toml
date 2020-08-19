@@ -175,10 +175,13 @@ fixities = [
     let-in    = "align"
     let-binds = "align"
 
-    # The `then` and `else` branches of an `if` expression are indented by 2
-    # spaces.
+    # The `then` and `else` branches of an `if` expression are indented by two
+    # spaces. If all guards of a function fit on the same line as the left-hand
+    # side, they are aligned with each other. Otherwise, the first guard starts
+    # on the next line and all guards are indented by two spaces.
+    #
     if       = "indent-by 2"
-    multi-if = "indent-by 2"
+    multi-if = "align-or-indent-by 2"
 
     # Deriving and `where`-clauses are indented by a single space only.
     # The contents of the `where`-block are indented by two spaces (one space
