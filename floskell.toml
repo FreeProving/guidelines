@@ -289,9 +289,15 @@ fixities = [
     # `where`-blocks and in `class` as well as `instance` declarations.
     decl-no-blank-lines = []
 
-    # `do`-blocks, `case`- and lambda expressions are not allowed in
-    # `try-oneline` layouts.
-    flexible-oneline = false
+    # `do`-blocks, `case`- and lambda expressions are allowed in `try-oneline`
+    # layouts. For example, the following is allowed.
+    #
+    #     foo = bar $ do
+    #       …
+    #
+    # If this option was set to `false`, the `$ do` would have to be broken
+    # into the next line.
+    flexible-oneline = true
 
     # There should be only one blank line between declarations. Redundant
     # vertical space is removed by Floskell.
