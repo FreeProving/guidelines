@@ -120,12 +120,19 @@ fixities = [
     # line.
     con-decls        = "try-oneline"
 
-    # If a `if`- or `let`-expression does not fit in a single line, the `if`,
-    # `then` and `else` expressions are broken into their own lines.
-    # For example, `then` and `else` don't share a line unless the entire
-    # `if` expression fits in one line.
+    # If an `if`-expression does not fit in a single line, the `then` and
+    # `else` expressions are broken into their own each lines. The `then`
+    # and `else` branch are not in the same line unless the entire `if`-
+    # expression fits onto a single line.
     if               = "try-oneline"
-    let              = "try-oneline"
+
+    # The `in` keyword is always vertically aligned with the `let` keyword.
+    # They never occur on the same line. This rule prevents the following
+    # situation.
+    #
+    #     foo = let x = case bar of
+    #       Bar -> baz in qux
+    let              = "vertical"
 
     list-comp        = "flex"
 
