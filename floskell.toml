@@ -222,10 +222,10 @@ fixities = [
     # > larger than absolute limit and is larger than relative limit of the
     # > maximum field length (tabstop column minus indentation).
     #
-    # We are using the default configuration, i.e. an absolute limit of 10
-    # characters and a relative limit of 25%. We may want to tweak these
-    # values in the future, though.
-    limits = [10, 25]
+    # We are using the default relative limit of 25%. Since the default value
+    # for the absolute limit of 10 spaces prevented many function declarations
+    # from being indented, it was increased to 20 spaces.
+    limits = [20, 25]
 
   # The following rules control where to insert whitespace in parentheses,
   # brackets and braces.
