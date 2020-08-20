@@ -3,7 +3,7 @@
 #
 # This is a template for the Floskell configuration file. Floskell uses the
 # JSON file format for its configuration.
-# Unfortunatly, JSON does not support comments. Thus, this file is using
+# Unfortunately, JSON does not support comments. Thus, this file is using
 # The TOML configuration file format instead. Therefore, the file needs to
 # be converted to JSON before it can be used. If you have `docker` installed,
 # you can use the following command for the conversion.
@@ -51,9 +51,9 @@ language = "Haskell2010"
 #       form `infix[l|r] <PRECEDENCE> <OPERATOR>`. Floskell formats individual
 #       modules and does not inspect imported modules. If a module imports an
 #       infix operator from another module, Floskell needs to know the
-#       associtivity and precedence of the operator to parse the module
+#       associativity and precedence of the operator to parse the module
 #       correctly. Thus, the fixities of all imported infix operators have
-#       to be listed here. Unfortunatly, this means that all infix operator
+#       to be listed here. Unfortunately, this means that all infix operator
 #       names must be unique. Avoid the definition of custom infix operators
 #       as well as the use of third-party infix operators to prevent name clashes.
 #
@@ -72,7 +72,7 @@ fixities = [
 # The following options should be the same across all repositories of the
 # FreeProving project. Do NOT modify the settings below.
 [formatting]
-  # Floskell uses a penalty function to decide where to insert linebreaks.
+  # Floskell uses a penalty function to decide where to insert line breaks.
   # The following are parameters of the penalty function.
   #
   #  * `indent`:          Penalty for each indentation character.
@@ -83,7 +83,7 @@ fixities = [
   #
   # Most values are the default values. However, the penalty for overfull lines
   # has been increased. Otherwise, Floskell sometimes does not break long lines
-  # since the cost for a linebreak exceeds the cost for the overflow. However,
+  # since the cost for a line break exceeds the cost for the overflow. However,
   # we never want a line to exceed the maximum line length of 80 characters if
   # it is possible to do so.
   [formatting.penalties]
@@ -287,7 +287,7 @@ fixities = [
       spaces          = "both"
       linebreaks      = "after"
 
-  # The formatting options.
+  # The following options specify additional formatting rules.
   [formatting.options]
     # The equal sign and pipe characters are aligned in data type declarations.
     align-sum-type-decl = true
@@ -310,15 +310,16 @@ fixities = [
     # vertical space is removed by Floskell.
     preserve-vertical-space = false
 
-    # The import specifier lists, pragmas and language extension pragmas are
-    # sorted alphabetically.
+    # The import specifier lists and pragmas are sorted alphabetically.
+    # If multiple language extensions are enabled within the same `LANGUAGE`
+    # pragma, a new pragma is created for each language extension.
     sort-import-lists      = true
     sort-pragmas           = true
     split-language-pragmas = true
 
     # The following array of tables controls how imports are sorted.
     # Each entry defines a group of import declarations. Import groups are
-    # separated by a blank lines. Within import groups, the indidual import
+    # separated by a blank lines. Within import groups, the individual import
     # declarations are sorted by the module name.
     #
     # The first group contains the `Prelude` module only. Thus, if a module
