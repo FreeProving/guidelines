@@ -245,7 +245,7 @@ An introduction to Git's command line interface can be found [here][Git/Tutorial
 We recommend installing the following tools if you want to contribute Haskell code.
 Both of these tools are used to make sure that we are using a consistent code style throughout the project and are described in more detail in the [Haskell Styleguide](#haskell-styleguide) below.
 
- - [Brittany][software/Brittany], 0.12.1.1
+ - [Floskell][software/Floskell], 0.10.4
  - [HLint][software/HLint], version 3.1.1
 
 The versions mentioned above are the versions used by our [CI pipelines](#the-ci-pipeline).
@@ -320,6 +320,19 @@ The directory structure of the repository should be as follows if not stated oth
    The examples should help users to get started with the software and demonstrate features as well as limitations.
    In case of the Free Compiler there are Haskell modules that can (or cannot) be compiled for example.
    More details about the examples and how to check out the examples should be provided in the repository's README.
+
+ - `./floskell.toml` and `./floskell.json`
+
+   The `./floskell.toml` configuration file contains repository-specific [Floskell](#floskell) formatting options.
+   Floskell usually requires a JSON configuration file.
+   However, in order to add comments to the configuration file, we are using [TOML][toml/v0.4.0] instead.
+   The TOML file is then used in conjunction with the Floskell [template configuration][guidelines/floskell.toml] file in the [guidelines][] repository to generate the `./floskell.json` file.
+   See the comments in the template file for more information.
+
+   Even though `./floskell.json` is a generated file, we allow it to be committed in order to ease the transition to Floskell.
+   It should not be modified manually.
+   Each repository should provide a `./tool/update-floskell-config.sh` script to regenerate the `./floskell.json` file from the current repository-specific configuration and the latest version of the template.
+   Usually, only maintainers need to run this script or update the Floskell configuration.
 
  - `./img`
 
@@ -482,8 +495,8 @@ You can find the corresponding workflow configuration file in `.github/workflows
 
 The CI pipeline of most repositories checks whether
 
- - the code has been formatted with [Brittany][software/Brittany]
- - [HLint][software/HLint] prints no hint that is not explicitly ignored in `.hlint.yaml`
+ - the code has been formatted with [Floskell][software/Floskell],
+ - [HLint][software/HLint] prints no hint that is not explicitly ignored in `.hlint.yaml`,
  - the executables and the unit tests compile without warnings,
  - all unit tests pass and
  - Haddock generates the documentation without errors and there
@@ -762,51 +775,6 @@ We are using automatic code formatters and linters to enforce a consistent code 
 The tools we are using are covered by the subsections below.
 The following is a list of additional guidelines that are not yet covered by the tools.
 
-##### Separate imports of internal and external modules
-
- - The import declarations for modules from other packages should precede all imports of modules from this repository.
-   The two blocks of import declarations are separated by a blank line.
-
-   ```haskell
-   import           Control.Monad
-   import           Data.List
-
-   import           FreeC.Environment
-   ```
-
- - If you are hiding imports from the `Prelude` module, separate the corresponding `import` declaration from all other imports by a blank line.
-   Sort the explicit import of the `Prelude` before all others.
-
-   ```haskell
-   import           Prelude                 hiding ( fail )
-
-   import           Control.Monad.Fail             ( MonadFail(..) )
-   import           Control.Monad.State            ( MonadState(..) )
-   ```
-
-##### Sort imports alphabetically
-
- - Within the individual blocks of import declarations, the imports are sorted alphabetically by the name of the imported module.
-
-   ```haskell
-   import           Control.Monad
-   import           Data.List
-   ```
-
- - If a module is imported qualified and unqualified, the unqualified import goes first.
-
-   ```haskell
-   import           Data.Set                       ( Set )
-   import qualified Data.Set                      as Set
-   ```
-
- - If the name of a module is prefixed with the name of another imported module, sort the module with the shorter name first.
-
-   ```haskell
-   import           Data.Set                       ( Set )
-   import           Data.Set.Ordered               ( OSet )
-   ```
-
 ##### Use qualified imports
 
 The `.hlint.yaml` file lists common aliases for modules.
@@ -835,41 +803,6 @@ import           Data.Set                       ( Set
                                                 , (\\)
                                                 )          -- OKAY
 ```
-
-##### Align constructors of data type declarations
-
-If the constructors of a data type declaration do not fit in one line, align them as follows.
-
-```haskell
-data Tree a
-  = Leaf a
-  | Branch (Tree a) (Tree a)
- deriving (Eq, Show)
-```
-
-The constructors are indented by two spaces and the `deriving` clause is indented by a single space.
-
-##### Align fields of record constructors
-
-In record constructors, each field is listed on it's own line.
-The type signatures are aligned.
-
-```haskell
-data Person = Person
-  { firstName :: String
-  , lastName  :: String
-  , age       :: Int
-  }
- deriving (Eq, Show)
-```
-
-If there is just a single field (e.g. in a `newtype` declaration) you can write the entire data type on one line if it fits.
-
-```haskell
-newtype State s a = State { runState :: s -> (a, s) }
-```
-
-The `deriving` clause still belongs on its own line and is indented by a single space.
 
 ##### Add type signatures for all function declarations
 
@@ -907,7 +840,7 @@ foo x = (xx, xx)
  - Prefer meaningful names over short variable names
 
    The name of a variable should tell you something about it's type, what it is used for or where it is coming from.
-  Don't over use abbreviations!
+   Don't over use abbreviations!
    If you abbreviate a variable name, stick with the naming conventions established by the remaining code in the repository you contribute to.
    If have to deviate from those implicit naming conventions, try to be consistent with the code in the same module.
 
@@ -915,11 +848,10 @@ foo x = (xx, xx)
    The variable name should still be meaningful.
    For example, an lists should have the suffix `s` or monadic values the prefix `m`.
 
-   A consequence of meaningful variable names is that the left-hand sides of function declarations can get quite long.
-   Unfortunately, [Brittany](#brittany) does not insert line breaks on the left-hand sides of function declarations (in fact, all line breaks are removed automatically by Brittany).
-   However, meaningful variables are more important than short lines.
-   Thus, it is okay, if the left-hand side of a function declaration exceeds the 80 character line length limit.
-   Nonetheless, if a single variable name approaches this limit you definitely did something wrong :wink:
+   A consequence of meaningful variable names is that lines can get quite long.
+   [Floskell](#floskell) automatically breaks long lines and idents the code appropriately.
+   Thus, you don't have to worry about the 80 character line length limit.
+   Nonetheless, if a single variable name approaches this limit, you definitely did something wrong :wink:
    Meaningful variable names do not necessarily have to be long!
 
 ##### Grouping source code
@@ -939,20 +871,34 @@ Before and after the comment with the heading, there should be a comment that co
 If the comment does not start in the first column of the source file, there may be fewer dashes to satisfy the 80 character limit per line.
 There are two trailing dashes at the end of the heading comment which align with the last two dashes of the other two comments.
 
-#### Brittany
+> **Note:** [Floskell](#floskell) currently [removes blank lines after comments][software/Floskell/issues/28].
+> Thus a heading comment will be joined with the next Haddock comment.
+>
+> ```haskell
+> -------------------------------------------------------------------------------
+> -- Heading                                                                   --
+> -------------------------------------------------------------------------------
+> -- | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rutrum
+> --   facilisis nisi, eget dictum metus tempus vitae.
+> ```
+>
+> Once this issue is resolved, the blank lines have to be inserted again manually.
 
-[Brittany][software/Brittany] is a code formatter for Haskell.
+#### Floskell
+
+[Floskell][software/Floskell] is a code formatter for Haskell.
 It can be installed via Cabal as follows.
 
 ```haskell
-cabal new-install brittany
+cabal new-install floskell
 ```
 
-The [CI pipeline](#the-ci-pipeline) runs `brittany` on all Haskell source files in the `src` and `example` directories and compares its output with the committed files.
-If there are Haskell source files that have not been formatted using `brittany`, the CI pipeline fails.
+The [CI pipeline](#the-ci-pipeline) runs `floskell` on all Haskell source files in the `src` and `example` directories and compares its output with the committed files.
+If there are Haskell source files that have not been formatted using `floskell`, the CI pipeline fails.
 The same check is performed by the `./tool/check-formatting.sh` and `./tool/full-test.sh` scripts.
 
-There is Brittany support for various editors (see also [Editor Integration][software/Brittany#editor-integration]).
+There is Floskell support for various editors (see also [Editor Integration][software/Floskell#editor-integration]).
+Make sure that the Plugin for your editor uses our `floskell.json` configuration file.
 If your editor is not supported, you can use the following shell script that we provide.
 
 ```haskell
@@ -962,10 +908,6 @@ If your editor is not supported, you can use the following shell script that we 
 If no files are specified, all Haskell source files in the `src` and `example` directory are formatted by default.
 Note that the script overwrites the formatted files.
 Thus, you should create a backup beforehand by `git add`ing your changes, for example.
-
-Of course Brittany is not perfect.
-Among others, data type declarations are not formatted at the moment.
-So don't rely entirely on the output of our automatic tests and manually check your code nonetheless according to the rules outlined above.
 
 #### HLint
 
@@ -1245,7 +1187,7 @@ Links of the form `[...](URL)` should be used for internal references only (i.e.
 ##### Format and syntax highlight code snippets
 
 When you use code snippets in your Markdown document (and you probably should be!) format the embedded source code as you would format any other source code.
-For example, if you have an example involving Haskell code, format that code using Brittany first.
+For example, if you have an example involving Haskell code, format that code using Floskell first.
 
 You should use [fenced code blocks][Markdown/fenced-code-blocks] rather than indented code blocks and specify the language of the embedded source code explicitly.
 For example, if you want to give an example hello world program written in Haskell, embed the source code as follows.
@@ -1418,6 +1360,9 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [guidelines/CODE_OF_CONDUCT]:
   https://github.com/FreeProving/guidelines/blob/main/CODE_OF_CONDUCT.md
   "FreeProving Guidelines — Code of Conduct"
+[guidelines/floskell.toml]:
+  https://github.com/FreeProving/guidelines/blob/floskell/floskell.toml
+  "FreeProving Guidelines — Floskell Template Configuration File"
 [guidelines/issues]:
   https://github.com/FreeProving/guidelines/issues
   "FreeProving Guidelines — Issues"
@@ -1467,12 +1412,15 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
   https://github.github.com/gfm/#link-reference-definition
   "GitHub Flavored Markdown Spec — Link reference definitions"
 
-[software/Brittany]:
-  https://github.com/lspitzner/brittany/
-  "Brittany"
-[software/Brittany#editor-integration]:
-  https://github.com/lspitzner/brittany/#editor-integration
-  "Brittany — Editor Integration"
+[software/Floskell]:
+  https://github.com/ennocramer/floskell
+  "Floskell"
+[software/Floskell#editor-integration]:
+  https://github.com/ennocramer/floskell#editor-integration
+  "Floskell — Editor Integration"
+[software/Floskell/issues/28]:
+  https://github.com/ennocramer/floskell/issues/28
+  "Floskell — Preserve blank lines between comments and surrounding syntax elements — Issue 28"
 [software/Haddock]:
   https://www.haskell.org/haddock/
   "Haddock"
@@ -1491,6 +1439,10 @@ See the [LICENSE][guidelines/LICENSE] file of the corresponding repository for d
 [software/Hspec/Spec]:
   https://hackage.haskell.org/package/hspec-2.7.1/docs/Test-Hspec.html#t:Spec
   "Test.Hspec — type Spec"
+
+[toml/v0.4.0]:
+  https://toml.io/en/v0.4.0
+  "TOML ­— Version 0.4.0"
 
 [wiki/BOM]:
   https://en.wikipedia.org/wiki/Byte_order_mark
