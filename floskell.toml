@@ -287,6 +287,13 @@ fixities = [
       spaces          = "both"
       linebreaks      = "after"
 
+    # In as-patterns there should be no whitespace around the `@` sign since
+    # HLint throws a parse error otherwise.
+    [formatting.op."@ in pattern"]
+      force-linebreak = false
+      spaces          = "none"
+      linebreaks      = "none"
+
   # The following options specify additional formatting rules.
   [formatting.options]
     # The equal sign and pipe characters are aligned in data type declarations.
